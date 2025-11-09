@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  phone_number: MyString
+  status: MyString
+  duration: 1
+  answered: false
+  call_sid: MyString
+  error_message: MyText
+
+two:
+  phone_number: MyString
+  status: MyString
+  duration: 1
+  answered: false
+  call_sid: MyString
+  error_message: MyText

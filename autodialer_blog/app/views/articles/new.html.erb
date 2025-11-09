@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI Article Generator</title>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav style="background: #343a40; color: white; padding: 15px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center;">
+      <h1 style="margin: 0; font-size: 24px;">✍️ AI Article Generator</h1>
+      <div style="display: flex; gap: 20px;">
+        <%= link_to "🏠 Home", root_path, style: "color: white; text-decoration: none; font-weight: 500;" %>
+        <%= link_to "📞 Autodialer", calls_path, style: "color: white; text-decoration: none; font-weight: 500;" %>
+        <%= link_to "📚 Blog", articles_path, style: "color: white; text-decoration: none; font-weight: 500;" %>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width: 900px; margin: 40px auto; padding: 0 20px;">
+    
+    <header style="text-align: center; margin-bottom: 40px;">
+      <h1 style="font-size: 42px; margin-bottom: 15px; color: #333;">Generate Programming Articles with AI</h1>
+      <p style="font-size: 18px; color: #666;">Powered by DeepSeek AI • Auto image generation • 800-1000 word articles</p>
+    </header>
+    
+    <!-- AI Prompt Interface -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(102,126,234,0.3);">
+      <h2 style="margin: 0 0 10px 0; color: white; font-size: 24px;">🤖 AI Quick Prompt</h2>
+      <p style="color: rgba(255,255,255,0.9); margin: 0 0 20px 0;">Type a natural command like: "generate article about Python web scraping"</p>
+      
+      <%= form_with url: ai_prompt_articles_path, method: :post do |f| %>
+        <div style="display: flex; gap: 12px;">
+          <%= f.text_field :prompt, 
+              placeholder: "e.g., write an article about Docker containers", 
+              style: "flex: 1; padding: 14px; font-size: 16px; border: 2px solid rgba(255,255,255,0.3); border-radius: 8px; background: rgba(255,255,255,0.95);" %>
+          <%= f.submit "Generate", 
+              style: "padding: 14px 28px; background: white; color: #667eea; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 16px;" %>
+        </div>
+      <% end %>
+    </div>
+    
+    <!-- Batch Generation -->
+    <div style="background: white; padding: 35px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <h2 style="margin: 0 0 10px 0; color: #333; font-size: 28px;">📝 Batch Generate Articles</h2>
+      <p style="color: #666; margin: 0 0 25px 0; font-size: 16px;">Enter up to 10 article titles (one per line). AI will generate full articles with images automatically.</p>
+      
+      <%= form_with url: generate_articles_path, method: :post do |f| %>
+        <div style="margin-bottom: 25px;">
+          <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #555; font-size: 16px;">Article Titles:</label>
+          <%= f.text_area :titles, 
+              rows: 14,
+              placeholder: "Introduction to Machine Learning\nBuilding REST APIs with Flask\nUnderstanding Docker Containers\nGit and GitHub Best Practices\nPython Web Scraping Tutorial\nSQL vs NoSQL Databases\nAsync Programming in JavaScript\nBuilding Your First Neural Network\nCI/CD Pipeline for Beginners\nClean Code Principles",
+              style: "width: 100%; padding: 14px; font-size: 15px; border: 2px solid #e0e0e0; border-radius: 8px; font-family: 'Monaco', monospace; line-height: 1.6; resize: vertical;" %>
+          <small style="color: #6c757d; display: block; margin-top: 8px;">
+            ⚠️ Maximum 10 articles • Takes ~5-10 seconds per article • Each will be 800-1000 words
+          </small>
+        </div>
+        
+        <%= f.submit "🚀 Generate All Articles", 
+            data: { confirm: "This will generate articles using DeepSeek AI. Continue?" },
+            style: "width: 100%; padding: 16px 0; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: 600; box-shadow: 0 4px 12px rgba(40,167,69,0.4);" %>
+      <% end %>
+    </div>
+    
+    <!-- How It Works -->
+    <div style="background: #f8f9fa; padding: 30px; margin-top: 30px; border-radius: 12px; border-left: 4px solid #667eea;">
+      <h3 style="margin: 0 0 15px 0; color: #333; font-size: 22px;">ℹ️ How It Works</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; color: #555;">
+        <div>
+          <div style="font-size: 32px; margin-bottom: 10px;">🤖</div>
+          <h4 style="margin: 0 0 8px 0; color: #333;">AI Generation</h4>
+          <p style="margin: 0; line-height: 1.6;">DeepSeek AI generates 800-1000 word articles with code examples</p>
+        </div>
+        <div>
+          <div style="font-size: 32px; margin-bottom: 10px;">🖼️</div>
+          <h4 style="margin: 0 0 8px 0; color: #333;">Auto Images</h4>
+          <p style="margin: 0; line-height: 1.6;">Images are auto-generated using Pollinations.ai</p>
+        </div>
+        <div>
+          <div style="font-size: 32px; margin-bottom: 10px;">📝</div>
+          <h4 style="margin: 0 0 8px 0; color: #333;">Format</h4>
+          <p style="margin: 0; line-height: 1.6;">Articles use Markdown with unique URL slugs</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Sample Topics -->
+    <div style="background: white; padding: 30px; margin-top: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <h3 style="margin: 0 0 15px 0; color: #333; font-size: 22px;">💡 Sample Topic Ideas</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+        <div style="padding: 12px; background: #e7f3ff; border-radius: 6px; color: #0056b3; font-size: 14px; font-weight: 500;">🐍 Python for Data Science</div>
+        <div style="padding: 12px; background: #fff3cd; border-radius: 6px; color: #856404; font-size: 14px; font-weight: 500;">⚛️ React Hooks Tutorial</div>
+        <div style="padding: 12px; background: #d4edda; border-radius: 6px; color: #155724; font-size: 14px; font-weight: 500;">🐳 Docker Best Practices</div>
+        <div style="padding: 12px; background: #f8d7da; border-radius: 6px; color: #721c24; font-size: 14px; font-weight: 500;">🔐 API Security Guide</div>
+        <div style="padding: 12px; background: #d1ecf1; border-radius: 6px; color: #0c5460; font-size: 14px; font-weight: 500;">🚀 Node.js Performance</div>
+        <div style="padding: 12px; background: #e2e3e5; border-radius: 6px; color: #383d41; font-size: 14px; font-weight: 500;">📊 SQL Optimization</div>
+      </div>
+    </div>
+    
+
+    
+    <!-- Link to Blog -->
+    <div style="margin-top: 40px; text-align: center;">
+      <%= link_to "📚 View All Articles", articles_path, 
+          style: "display: inline-block; padding: 14px 28px; background: #6c757d; color: white; text-decoration: none; border-radius: 8px; font-weight: 600;" %>
+    </div>
+  </div>
+
+  <!-- Flash Messages -->
+  <% if notice %>
+    <div style="position: fixed; top: 80px; right: 20px; background: #28a745; color: white; padding: 16px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 1000;">
+      <%= notice %>
+    </div>
+  <% end %>
+  
+  <% if alert %>
+    <div style="position: fixed; top: 80px; right: 20px; background: #dc3545; color: white; padding: 16px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 1000;">
+      <%= alert %>
+    </div>
+  <% end %>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</body>
+</html>

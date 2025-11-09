@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Autodialer + AI Blog Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav style="background: #343a40; color: white; padding: 15px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center;">
+      <h1 style="margin: 0; font-size: 24px;">🚀 Autodialer + AI Blog</h1>
+      <div style="display: flex; gap: 20px;">
+        <%= link_to "🏠 Home", root_path, style: "color: white; text-decoration: none; font-weight: 500; opacity: 0.7;" %>
+        <%= link_to "📞 Autodialer", calls_path, style: "color: white; text-decoration: none; font-weight: 500;" %>
+        <%= link_to "📚 Blog", articles_path, style: "color: white; text-decoration: none; font-weight: 500;" %>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Dashboard -->
+  <div class="container" style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+    
+    <!-- Hero Section -->
+    <div style="text-align: center; margin-bottom: 50px;">
+      <h2 style="font-size: 42px; color: #333; margin-bottom: 15px;">Welcome to Your AI-Powered Platform</h2>
+      <p style="font-size: 18px; color: #666; max-width: 700px; margin: 0 auto;">
+        Automate phone calls with Twilio integration and generate programming articles using AI
+      </p>
+    </div>
+
+    <!-- Stats Overview -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 50px;">
+      <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="font-size: 14px; opacity: 0.9; margin-bottom: 8px;">📚 Total Articles</div>
+        <div style="font-size: 36px; font-weight: bold;"><%= @article_count %></div>
+        <%= link_to "View All →", articles_path, style: "color: white; font-size: 14px; text-decoration: none; opacity: 0.9; display: inline-block; margin-top: 10px;" %>
+      </div>
+
+      <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="font-size: 14px; opacity: 0.9; margin-bottom: 8px;">📞 Total Calls</div>
+        <div style="font-size: 36px; font-weight: bold;"><%= @call_count %></div>
+        <%= link_to "View Dashboard →", calls_path, style: "color: white; font-size: 14px; text-decoration: none; opacity: 0.9; display: inline-block; margin-top: 10px;" %>
+      </div>
+
+      <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <div style="font-size: 14px; opacity: 0.9; margin-bottom: 8px;">✅ Completed Calls</div>
+        <div style="font-size: 36px; font-weight: bold;"><%= @completed_calls %></div>
+        <div style="font-size: 14px; opacity: 0.9; margin-top: 10px;">
+          <%= @call_count > 0 ? "#{(@completed_calls.to_f / @call_count * 100).round(1)}% success rate" : "No calls yet" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-bottom: 50px;">
+      
+      <!-- Autodialer Card -->
+      <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+          <div style="font-size: 40px; margin-right: 15px;">📞</div>
+          <div>
+            <h3 style="margin: 0; color: #333; font-size: 22px;">Autodialer</h3>
+            <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Make automated calls using Twilio</p>
+          </div>
+        </div>
+        
+        <ul style="list-style: none; padding: 0; margin: 0 0 20px 0; color: #666;">
+          <li style="padding: 8px 0; border-bottom: 1px solid #eee;">✓ Bulk upload phone numbers</li>
+          <li style="padding: 8px 0; border-bottom: 1px solid #eee;">✓ AI-powered commands</li>
+          <li style="padding: 8px 0; border-bottom: 1px solid #eee;">✓ Real-time call tracking</li>
+          <li style="padding: 8px 0;">✓ Hybrid mode (real + simulated)</li>
+        </ul>
+        
+        <%= link_to "Open Autodialer →", calls_path, 
+            style: "display: block; text-align: center; padding: 12px; background: #007bff; color: white; text-decoration: none; border-radius: 6px; font-weight: 500;" %>
+      </div>
+
+      <!-- AI Blog Generator Card -->
+      <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+          <div style="font-size: 40px; margin-right: 15px;">✍️</div>
+          <div>
+            <h3 style="margin: 0; color: #333; font-size: 22px;">AI Blog Generator</h3>
+            <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Create articles with DeepSeek AI</p>
+          </div>
+        </div>
+        
+        <ul style="list-style: none; padding: 0; margin: 0 0 20px 0; color: #666;">
+          <li style="padding: 8px 0; border-bottom: 1px solid #eee;">✓ Generate up to 10 articles</li>
+          <li style="padding: 8px 0; border-bottom: 1px solid #eee;">✓ AI-powered content</li>
+          <li style="padding: 8px 0; border-bottom: 1px solid #eee;">✓ Auto image generation</li>
+          <li style="padding: 8px 0;">✓ Natural language prompts</li>
+        </ul>
+        
+        <%= link_to "Generate Articles →", new_article_path, 
+            style: "display: block; text-align: center; padding: 12px; background: #28a745; color: white; text-decoration: none; border-radius: 6px; font-weight: 500;" %>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 30px;">
+      
+      <!-- Recent Articles -->
+      <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <h3 style="margin: 0 0 20px 0; color: #333;">📚 Recent Articles</h3>
+        
+        <% if @recent_articles.any? %>
+          <% @recent_articles.each do |article| %>
+            <div style="padding: 15px 0; border-bottom: 1px solid #eee;">
+              <%= link_to article.title, article_path(article.slug), 
+                  style: "color: #007bff; text-decoration: none; font-weight: 500; font-size: 16px; display: block; margin-bottom: 5px;" %>
+              <div style="color: #666; font-size: 13px;">
+                <%= article.reading_time %> • <%= article.created_at.strftime("%b %d, %Y") %>
+              </div>
+            </div>
+          <% end %>
+          
+          <%= link_to "View all articles →", articles_path, 
+              style: "display: inline-block; margin-top: 15px; color: #007bff; text-decoration: none; font-size: 14px;" %>
+        <% else %>
+          <p style="color: #999; text-align: center; padding: 30px 0;">No articles yet. Generate your first article!</p>
+        <% end %>
+      </div>
+
+      <!-- Recent Calls -->
+      <div style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <h3 style="margin: 0 0 20px 0; color: #333;">📞 Recent Calls</h3>
+        
+        <% if @recent_calls.any? %>
+          <% @recent_calls.each do |call| %>
+            <div style="padding: 15px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-weight: 500; color: #333;"><%= call.phone_number %></div>
+                <div style="color: #666; font-size: 13px; margin-top: 3px;">
+                  <%= call.created_at.strftime("%b %d, %I:%M %p") %>
+                </div>
+              </div>
+              <span style="padding: 4px 10px; border-radius: 4px; background: <%= call.status_color %>; color: white; font-size: 12px;">
+                <%= call.status %>
+              </span>
+            </div>
+          <% end %>
+          
+          <%= link_to "View all calls →", calls_path, 
+              style: "display: inline-block; margin-top: 15px; color: #007bff; text-decoration: none; font-size: 14px;" %>
+        <% else %>
+          <p style="color: #999; text-align: center; padding: 30px 0;">No calls yet. Upload numbers to get started!</p>
+        <% end %>
+      </div>
+    </div>
+
+
+
+  </div>
+
+  <!-- Flash Messages -->
+  <% if notice %>
+    <div style="position: fixed; top: 20px; right: 20px; background: #28a745; color: white; padding: 15px 20px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 1000;">
+      <%= notice %>
+    </div>
+  <% end %>
+  
+  <% if alert %>
+    <div style="position: fixed; top: 20px; right: 20px; background: #dc3545; color: white; padding: 15px 20px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 1000;">
+      <%= alert %>
+    </div>
+  <% end %>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+    
+    code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+  </style>
+</body>
+</html>

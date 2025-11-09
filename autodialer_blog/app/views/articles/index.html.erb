@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Programming Blog</title>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav style="background: #343a40; color: white; padding: 15px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center;">
+      <h1 style="margin: 0; font-size: 24px;">📚 Programming Blog</h1>
+      <div style="display: flex; gap: 20px;">
+        <%= link_to "🏠 Home", root_path, style: "color: white; text-decoration: none; font-weight: 500;" %>
+        <%= link_to "📞 Autodialer", calls_path, style: "color: white; text-decoration: none; font-weight: 500;" %>
+        <%= link_to "📚 Blog", articles_path, style: "color: white; text-decoration: none; font-weight: 500; opacity: 0.7;" %>
+      </div>
+    </div>
+  </nav>
+
+  <div class="blog-container" style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
+    <!-- Header -->
+    <header style="text-align: center; margin-bottom: 50px;">
+      <h1 style="font-size: 48px; margin-bottom: 15px; color: #333;">AI-Generated Programming Articles</h1>
+      <p style="font-size: 18px; color: #666; margin-bottom: 25px;">Powered by DeepSeek AI and Pollinations.ai for images</p>
+      <%= link_to "✍️ Generate New Articles", new_article_path, 
+          style: "display: inline-block; padding: 14px 28px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; box-shadow: 0 4px 12px rgba(102,126,234,0.4);" %>
+    </header>
+    
+    <!-- Articles Grid -->
+    <% if @articles.any? %>
+      <div class="articles-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;">
+        <% @articles.each do |article| %>
+          <article style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: all 0.3s;">
+            <!-- Article Image -->
+            <% if article.image_url.present? %>
+              <div style="height: 220px; overflow: hidden; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <img src="<%= article.image_url %>" 
+                     alt="<%= article.title %>"
+                     style="width: 100%; height: 100%; object-fit: cover;"
+                     onerror="this.src='https://via.placeholder.com/800x400/667eea/ffffff?text=<%= article.title.split.first %>'">
+              </div>
+            <% end %>
+            
+            <!-- Article Content -->
+            <div style="padding: 25px;">
+              <h2 style="font-size: 22px; margin: 0 0 12px 0; color: #333; line-height: 1.3;">
+                <%= link_to article.title, article_path(article.slug), 
+                    style: "color: #333; text-decoration: none;" %>
+              </h2>
+              
+              <div style="color: #6c757d; font-size: 13px; margin-bottom: 15px; display: flex; align-items: center; gap: 12px;">
+                <span>📖 <%= article.reading_time %></span>
+                <span>•</span>
+                <span>📅 <%= article.created_at.strftime("%b %d, %Y") %></span>
+              </div>
+              
+              <p style="color: #555; line-height: 1.7; margin-bottom: 20px; font-size: 15px;">
+                <%= article.excerpt(140) %>
+              </p>
+              
+              <%= link_to "Read more →", article_path(article.slug), 
+                  style: "color: #667eea; text-decoration: none; font-weight: 600; font-size: 14px;" %>
+            </div>
+          </article>
+        <% end %>
+      </div>
+    <% else %>
+      <div style="text-align: center; padding: 80px 20px; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div style="font-size: 72px; margin-bottom: 20px;">📝</div>
+        <h2 style="font-size: 28px; color: #333; margin-bottom: 15px;">No Articles Yet</h2>
+        <p style="font-size: 16px; color: #666; margin-bottom: 30px;">Start by generating your first AI-powered programming articles!</p>
+        <%= link_to "Generate Articles Now", new_article_path, 
+            style: "display: inline-block; padding: 16px 32px; background: #28a745; color: white; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: 600; box-shadow: 0 4px 12px rgba(40,167,69,0.4);" %>
+      </div>
+    <% end %>
+    
+    <!-- Info Footer -->
+    <% if @articles.any? %>
+      <div style="background: #f8f9fa; padding: 30px; border-radius: 12px; margin-top: 50px; border-left: 4px solid #667eea;">
+        <h3 style="margin: 0 0 15px 0; color: #333;">ℹ️ About These Articles</h3>
+        <ul style="color: #555; margin: 0; padding-left: 20px; line-height: 1.8;">
+          <li>All articles are generated using <strong>DeepSeek AI</strong></li>
+          <li>Images are created automatically using <strong>Pollinations.ai</strong></li>
+          <li>Articles are 800-1000 words with code examples</li>
+          <li>Perfect for learning programming concepts</li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Flash Messages -->
+  <% if notice %>
+    <div style="position: fixed; top: 80px; right: 20px; background: #28a745; color: white; padding: 16px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 1000;">
+      <%= notice %>
+    </div>
+  <% end %>
+  
+  <% if alert %>
+    <div style="position: fixed; top: 80px; right: 20px; background: #dc3545; color: white; padding: 16px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 1000;">
+      <%= alert %>
+    </div>
+  <% end %>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .articles-grid article:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+  </style>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @article.title %> - Programming Blog</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background: #343a40;
+      color: white;
+      padding: 15px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    nav .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .article-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .article-container a.back-link {
+      display: inline-block;
+      margin-bottom: 30px;
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    article {
+      background: white;
+      padding: 50px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    article header h1 {
+      font-size: 40px;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: #222;
+      font-weight: 700;
+    }
+
+    .meta-info {
+      color: #6c757d;
+      font-size: 14px;
+      margin-bottom: 30px;
+      padding-bottom: 25px;
+      border-bottom: 2px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .meta-info .category {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 6px 12px;
+      border-radius: 20px;
+      color: white;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .featured-image {
+      margin-bottom: 35px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .article-content {
+      line-height: 1.9;
+      color: #333;
+      font-size: 17px;
+    }
+
+    .article-content h1, .article-content h2, .article-content h3 {
+      font-weight: 700;
+      margin-top: 35px;
+      margin-bottom: 18px;
+      color: #222;
+    }
+
+    .article-content h1 { font-size: 32px; border-bottom: 3px solid #667eea; padding-bottom: 12px; }
+    .article-content h2 { font-size: 28px; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px; }
+    .article-content h3 { font-size: 22px; color: #444; }
+
+    .article-content p { margin-bottom: 22px; }
+    .article-content pre {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 25px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 25px 0;
+      line-height: 1.6;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .article-content code {
+      background: #f4f4f4;
+      padding: 3px 7px;
+      border-radius: 4px;
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 15px;
+      color: #d63384;
+      border: 1px solid #e9ecef;
+    }
+
+    .article-content pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    .article-content ul, .article-content ol {
+      margin-left: 25px;
+      margin-bottom: 22px;
+    }
+
+    .article-content li { margin-bottom: 12px; }
+
+    .article-content blockquote {
+      border-left: 4px solid #667eea;
+      background: #f8f9fa;
+      padding: 20px 25px;
+      margin: 25px 0;
+      font-style: italic;
+      color: #555;
+      border-radius: 4px;
+    }
+
+    footer .ai-footer {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+      margin-top: 50px;
+    }
+
+    .article-nav {
+      margin-top: 40px;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .article-nav a {
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      color: white;
+    }
+
+    .article-nav a.more { background: #6c757d; }
+    .article-nav a.generate { background: #28a745; }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="container">
+      <h1>📚 Programming Blog</h1>
+      <div style="display:flex; gap:20px;">
+        <%= link_to "🏠 Home", root_path %>
+        <%= link_to "📞 Autodialer", calls_path %>
+        <%= link_to "📚 Blog", articles_path %>
+      </div>
+    </div>
+  </nav>
+
+  <div class="article-container">
+    <%= link_to "← Back to All Articles", articles_path, class: "back-link" %>
+
+    <article>
+      <header>
+        <h1><%= @article.title %></h1>
+
+        <div class="meta-info">
+          <span>📖 <%= @article.reading_time %></span>
+          <span>•</span>
+          <span>📅 <%= @article.created_at.strftime("%B %d, %Y") %></span>
+          <span>•</span>
+          <span class="category"><%= @article.category || 'Programming' %></span>
+        </div>
+
+        <% if @article.image_url.present? %>
+          <div class="featured-image">
+            <img src="<%= @article.image_url %>" alt="<%= @article.title %>" style="width:100%; display:block;" onerror="this.style.display='none'">
+          </div>
+        <% end %>
+      </header>
+
+      <div class="article-content">
+        <%= simple_format(@article.content, {}, sanitize: false) %>
+      </div>
+
+      <footer>
+        <div class="ai-footer">
+          <p style="margin:0; display:flex; align-items:center; gap:8px;">
+            <span style="font-size:20px;">🤖</span>
+            <span><strong>AI-Generated Content:</strong> This article was created using DeepSeek AI and Pollinations.ai</span>
+          </p>
+        </div>
+      </footer>
+    </article>
+
+    <div class="article-nav">
+      <%= link_to "📚 More Articles", articles_path, class: "more" %>
+      <%= link_to "✍️ Generate New", new_article_path, class: "generate" %>
+    </div>
+  </div>
+</body>
+</html>
