@@ -6,8 +6,8 @@ import time
 import csv
 
 # My LinkedIn test account credentials
-USERNAME = "nishithasingh666@gmail.com"  
-PASSWORD = "Nishitha666@"         
+USERNAME = "email@gmail.com"  #email
+PASSWORD = "***********@"         #password
 
 def setup_browser():
     """Setting up Chrome - tried headless first but LinkedIn detected it"""
