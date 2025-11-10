@@ -34,12 +34,12 @@ It showcases practical applications of **Python, Ruby on Rails, and AI integrati
 
 ### ✨ Key Features
 
-✅ Automated LinkedIn scraping with login + anti-detection measures
-✅ AI-based voice prompt command for autodialing
-✅ Real & simulated Twilio call setup
-✅ AI-powered blog writer with auto-generated visuals
-✅ Organized folder structure and database management
-✅ Clear documentation for setup and execution
+* ✅ Automated LinkedIn scraping with login + anti-detection measures
+* ✅ AI-based voice prompt command for autodialing
+* ✅ Real & simulated Twilio call setup
+* ✅ AI-powered blog writer with auto-generated visuals
+* ✅ Organized folder structure and database management
+* ✅ Clear documentation for setup and execution
 
 ---
 
