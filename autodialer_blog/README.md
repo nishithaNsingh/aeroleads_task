@@ -9,13 +9,13 @@
 
 This Ruby on Rails application contains **two major features**:
 
-### 1. Autodialer (Twilio-based)**
+### 1. Autodialer (Twilio-based)
 
 Automatically calls 100+ phone numbers, logs statuses, and supports AI prompts like:
 
 > “make a call to 9876543210”
 
-###  2. AI Blog Generator**
+###  2. AI Blog Generator
 
 Generates 10 full programming articles using **DeepSeek API** + AI prompt interface.
 
