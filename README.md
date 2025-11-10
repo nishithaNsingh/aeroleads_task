@@ -12,7 +12,7 @@ It showcases practical applications of **Python, Ruby on Rails, and AI integrati
 | Folder               | Description                                                                                            |
 | -------------------- | ------------------------------------------------------------------------------------------------------ |
 | `linked_inscrapper/` | **Task 1:** LinkedIn Profile Scraper — Automates profile data extraction using Selenium and CSV export |
-| `autodialer_blog/`   | **Task 2 & 3:** Ruby on Rails Autodialer with AI Command Prompt and Blog Generator                     |
+| `autodialer_blog/`   | **Task 2 & 3:** Ruby on Rails Autodialer and Blog Generator                     |
 
 ---
 
