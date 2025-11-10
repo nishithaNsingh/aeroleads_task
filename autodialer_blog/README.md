@@ -200,6 +200,7 @@ TWILIO_PHONE_NUMBER=
 TWILIO_VERIFIED_NUMBER=
 DEEPSEEK_API_KEY=
 ```
+🔑 [Get your OpenRouter API Key here → https://openrouter.ai/keys](https://openrouter.ai/keys)
 
 ### 3️⃣ Start server
 
